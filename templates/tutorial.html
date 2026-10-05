@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<ol>
+    <li><code>django-admin startapp blogs .</code></li>
+    <li>Do settings.py dodaj aplikację</li>
+    <li>Przygotuj model dla Category</li>
+    <li>Zarejestruj model w admin.py:
+        <code>admin.site.register(Category)</code>
+    </li>
+    <li><code>python manage.py makemigrations</code></li>
+    <li><code>python manage.py migrate</code></li>
+    <li>Do settings.py dodaj instrukcje dla MEDIA - dodaj folder media</li>
+    <li>Do urls.py dodaj instrukcje dla MEDIA</li>
+    <li>Model 'Blog'</li>
+    <li>Zarejestruj model w admin.py. i dodaj klasę 'BlogAdmin'</li>
+    <li>W celu obsługi obrazów: <code>pip install Pillow</code></li>
+    <li>Zmigruj bazę</li>
+    <li>Zaktualizuj metodę home w views.py tak by pobierała wszystkie kategorie i 
+        prześlij je do templates/home.html by wyświetlić je w menu nawigacji
+    </li>
+    <li>Dodaj url dla kategorii w urls.py</li>
+    <li>Aby context był dostępny dla innych szablonów, stwórz plik 'context_processors.py'
+        i zarejestruj go w settings.py</li>
+    <li>Stwórz widok pojedyńczego bloga: w urls dodaj path będący slugiem.</li>
+    <li>Aby aktualizować wszystkie pakiety należy otworzyć plik requirements.txt i podmienić
+        znak równości na &gt;= i (użyj skrótu option+command+f):
+        <code>pip install -r requirements.txt --upgrade</code>
+        <code>pip freeze &gt; requirements.txt</code>
+    </li>
+    <li><code>backports.zoneinfo==0.2.1;python_version&lt;"3.9" w requirements.txt
+        wprowadza zalecenie dla pip, żeby instalował backports.zoneinfo dla Pythona mniejszego niż 3.8
+    </code></li>
+</ol>
+<h1>Po kolei, ogólnie:</h1>
+<ol>
+    <li>Tworzenie nowego projektu</li>
+    <li>Tworzenie aplikacji</li>
+    <li>Urls dla home</li>
+    <li>base.html, home.html, static, templates</li>
+    <li>Tworzenie modelu Category</li>
+    <li>contextProcesor dla category</li>
+    <li>link dla posts_by_category</li>
+    <li>views.py dla posts_by_category</li>
+    <li>posts_by_category.html</li>
+    <li>Dodać odnośnik do kategorii w home.html</li>
+    <li><code>pip install Pillow</code></li>
+    <li>Tworzenie modelu Blog</li>
+    <li>W trakcie rejestrowania modelu, dodaj klasę 'BlogAdmin'</li>
+    <li>Media w settings.py</li>
+    <li>Media w urls.py</li>
+    <li>Aplikacja assignments dla modelu SocialLink (migrate)</li>
+    <li>contextProcesor dla social_links (settings.py)</li>
+    <li>Dostosuj home.html dla social_links</li>
+</ol>
+{% endblock %}
