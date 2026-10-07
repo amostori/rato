@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 
 from assignments.models import About
 from website.models import Blog, Category
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
