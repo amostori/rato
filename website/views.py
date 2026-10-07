@@ -6,6 +6,7 @@ from website.models import Blog, Category
 from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def home(request):
     featured_posts = Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
     posts = Blog.objects.filter(is_featured=False, status='Published')
@@ -22,6 +23,7 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+@login_required
 def posts_by_category(request, category_id):
     posts = Blog.objects.filter(category=category_id, status='Published')
     category = get_object_or_404(Category, pk=category_id)
@@ -31,6 +33,7 @@ def posts_by_category(request, category_id):
     }
     return render(request, 'posts_by_category.html', context)
 
+@login_required
 def blog(request, slug):
     single_blog = get_object_or_404(Blog, slug=slug, status='Published')
     context = {

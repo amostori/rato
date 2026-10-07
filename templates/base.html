@@ -33,7 +33,7 @@
             <a class="btn btn-sm btn-warning" href="{% url 'login' %}">Login</a> &nbsp;
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Register</a>
             {% else %}
-            <span><a href="">Dashboard</a></span>
+            <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
             &emsp;
             {% comment %} &emsp; to kod w HTML, który wstawia szeroką spację o szerokości równej wielkości bieżącej czcionki (jednemu "em") {% endcomment %}
             <form method="POST" action="{% url 'logout' %}">

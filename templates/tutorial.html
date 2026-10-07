@@ -61,13 +61,112 @@
 </ol>
 <h2>Rejestracja i logowanie</h2>
 <ol>
-    <li>Tworzenie modelu User</li>
-    <li>Tworzenie formularza dla rejestracji</li>
-    <li>Tworzenie formularza dla logowania</li>
-    <li>Tworzenie widoku rejestracji</li>
-    <li>Tworzenie widoku logowania</li>
-    <li>Tworzenie widoku wylogowania</li>
+    <li><code>python manage.py startapp accounts</code></li>
+									<li>settings.py: dodaj apklikację 'accounts'</li>	
+									<li>accounts/urls.py:</li>
+										<pre><code>
+from django.urls import path
+from . import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+	path('register/', views.register, name='register'),
+	path('login', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+]
+										</code></pre></li>
+									<li>accounts/forms.py:
+										<pre><code>
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class CustomRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+										</code></pre></li>
+									<li>accounts/views.py:
+										<pre><code>
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import CustomRegisterForm
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Account created successfully!')
+            return redirect('index')
+    else:
+        form = CustomRegisterForm()
+    return render(request, 'register.html', {'form': form})
+
+										</code></pre></li>
+									<li>accounts/templates/register.html</li>
+									<li>accounts/templates/login.html</li>
+									<li>accounts/templates/logout.html</li>
+									<li><code>pip install crispy-bootstrap5</code></li>
+									<li>settings.py: <code>CRISPY_TEMPLATE_PACK = 'bootstrap5'</code></li>
+									<li>settings.py: <code>CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'</code></li>
+									<li>settings.py: INSTALLED_APPS: <code>'crispy_forms',</code></li>
+									<li>settings.py: INSTALLED_APPS: <code>'crispy_bootstrap5',</code></li>
+									<li>settings.py, wskazać miejsce przeniesienia
+										po zalogowaniu: <code>LOGIN_REDIRECT_URL = 'index'</code></li>
+									<li>website/views.py: <code>from django.contrib.auth.decorators import login_required</code></li>
+									<li>Udekoruj wszystkie strony z logowaniem: <code>@login_required</code></li>
+									<li>W przypadku nie zalogowanego użytkownika, przekieruj na strone logowania, settings.py: <code>LOGIN_URL = "login"</code></li>
+									<li>Usuń dotychczasową bazę danych</li>
+									<li>website/models.py, dodaj pole 'manage': <code>manage = models.ForeignKey('auth.User', on_delete=models.CASCADE, default=None)</code></li>
+									<li>website/views.py:
+										<pre><code>
+@login_required
+def home(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST or None)
+        if form.is_valid():
+            form.save(commit=False).manage = request.user
+            form.save()
+        return redirect('home')
+    else: # GET
+        posts = Post.objects.filter(manage=request.user)
+    return render(request, 'home.html', {'posts': posts})
+										</code></pre></li>
+									<li>Szablon edit.html również wymaga zabezpieczenia (if request.user == post.manage).</li>	
+	<li>Aby wylogować użytkownika stwórz logout.html, podaj do niego template w urls.py.</li>
+	<li>Uwaga, w Django 5.0 aby się wylogować należy użyć metody POST i tokena crsf, więc akcję logout
+wykonuje się w formularzu (w szablonie base.html).</li>	
 </ol>
+<h2>Dashboard</h2>
+<ol>
+    <li>Aplikacja dashboard</li>
+    <h4>Dashboard - kategorie</h4>
+    <li>dashboard/urls.py</li>
+    <li>Utwórz szablon dashboard.html</li>
+    <li>dashboard/forms.py</li>
+    <li>dashboard/views.py</li>
+    <li>dashboard/templates/categories.html</li>
+    <li>dashboard/templates/add_category.html</li>
+    <li>dashboard/templates/edit_category.html</li>
+    <h4>Dashboard - posts</h4>
+    <li>dashboard/urls.py</li>
+    <li>dashboard/forms.py</li>
+    <li>dashboard/views.py</li>
+    <li>dashboard/templates/posts.html</li>
+    <li>dashboard/templates/add_post.html</li>
+    <li>dashboard/templates/edit_post.html</li>
+    <h4>Dashboard - users</h4>
+    <li>dashboard/urls.py</li>
+    <li>dashboard/forms.py</li>
+    <li>dashboard/views.py</li>
+    <li>dashboard/templates/users.html</li>
+    <li>dashboard/templates/add_user.html</li>
+    <li>dashboard/templates/edit_user.html</li>
+</ol>
+
 
 <h2>Github</h2>
 <ol>
