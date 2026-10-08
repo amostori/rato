@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def home(request):
     featured_posts = Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
+    featured_posts_count = featured_posts.count()
     posts = Blog.objects.filter(is_featured=False, status='Published')
     try:
         about = About.objects.get()
@@ -18,6 +19,7 @@ def home(request):
     except:
         about = None
     context = {
+        'featured_posts_count': featured_posts_count,
         'posts': posts,
         'featured_posts': featured_posts,
         'about': about

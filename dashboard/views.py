@@ -61,6 +61,7 @@ def delete_category(request, pk):
     category.delete()
     return redirect('categories')
 
+@login_required
 def users(request):
     users = User.objects.all()
     context = {
@@ -68,6 +69,7 @@ def users(request):
     }
     return render(request, 'users.html', context)
 
+@login_required
 def add_user(request):
     if request.method == 'POST':
         form = AddUserForm(request.POST)
@@ -80,6 +82,7 @@ def add_user(request):
     }
     return render(request, 'add_user.html', context)
 
+@login_required
 def edit_user(request, pk):
     user = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
@@ -94,11 +97,13 @@ def edit_user(request, pk):
     }
     return render(request, 'edit_user.html', context)
 
+@login_required
 def delete_user(request, pk):
     user = get_object_or_404(User, pk=pk)
     user.delete()
     return redirect('users')
 
+@login_required
 def posts(reqest):
     posts = Blog.objects.all()
     context = {
@@ -106,6 +111,7 @@ def posts(reqest):
     }
     return render(reqest, 'posts.html', context)
 
+@login_required
 def add_post(request):
     if request.method == 'POST':
         # by przesyłać formularz wraz z plikiem nalezy ustawić request.FILES oraz
@@ -114,8 +120,9 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
+            post.save() # zapisujemy do bazy by dostępny był id
             title = form.cleaned_data.get('title')
-            post.slug = slugify(title) + '-'+str(post.id)
+            post.slug = slugify(title) + '-' + str(post.id)
             post.save()
             return redirect('posts')
         else:
@@ -127,6 +134,7 @@ def add_post(request):
     }
     return render(request, 'add_post.html', context)
 
+@login_required
 def edit_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
@@ -144,6 +152,7 @@ def edit_post(request, pk):
     }
     return render(request, 'edit_post.html', context)
 
+@login_required
 def delete_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     post.delete()
