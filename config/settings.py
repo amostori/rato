@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'dashboard',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'website.context_processors.get_categories',
                 'website.context_processors.get_social_links',
+                'website.context_processors.get_tiny_api',
             ],
         },
     },
@@ -131,8 +133,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+TINYMCE_API_KEY = env('TINYMCE_API_KEY')
 
-
+    
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 

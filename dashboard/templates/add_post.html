@@ -11,8 +11,12 @@
 
     <!-- Right side content -->
     <div class="col-md-9">
-        <h2>Add New Post</h2>
-        
+        <h2>Dodaj nowy artykuł</h2>
+        <script>
+      tinymce.init({
+        selector: 'textarea'
+      });
+    </script>
         <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
             {% comment %} enctype służy do przesyłania plików w formularzu {% endcomment %}
             {% csrf_token %}

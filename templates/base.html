@@ -17,6 +17,7 @@
     {% comment %} <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> {% endcomment %}
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.tiny.cloud/1/{{ tiny_api }}/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   </head>
 <body>
     <div class="container">
@@ -28,22 +29,22 @@
           <div class="col-4">
             <form action="{% url 'search' %}" method="GET">
               <div class="input-group">
-                <input class="form-control" type="text" name="keyword" value="{{ keyword }}" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                <button type="submit" class="btn btn-warning" id="button-search">Go!</button>
+                <input class="form-control" type="text" name="keyword" value="{{ keyword }}" placeholder="Wpisz szukaną frazę..." aria-label="Enter search term..." aria-describedby="button-search" />
+                <button type="submit" class="btn btn-warning" id="button-search">Start!</button>
             </div>
             </form>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
             {% if not user.is_authenticated %}
-            <a class="btn btn-sm btn-warning" href="{% url 'login' %}">Login</a> &nbsp;
-            <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Register</a>
+            <a class="btn btn-sm btn-warning" href="{% url 'login' %}">Zaloguj</a> &nbsp;
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Rejestracja</a>
             {% else %}
             <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
             &emsp;
             {% comment %} &emsp; to kod w HTML, który wstawia szeroką spację o szerokości równej wielkości bieżącej czcionki (jednemu "em") {% endcomment %}
             <form method="POST" action="{% url 'logout' %}">
               {% csrf_token %}
-              <button type="submit" class="btn btn-sm btn-danger">Logout</button>
+              <button type="submit" class="btn btn-sm btn-danger">Wyloguj</button>
             </form>
             {% endif %}
           </div>
@@ -65,7 +66,7 @@
 
 <!-- Footer Part -->
 <footer class="blog-footer">
-    <p>Django blog built with 💖 by <a href="#">Marcin Andrzejczak</a></p>
+    <p>Strona stworzona z 💖 przez <a href="#">Marcina Andrzejczaka</a></p>
   </footer>
   </body>
   </html>

@@ -11,19 +11,19 @@
     <!-- Right side content -->
     <div class="col-md-9">
       {% if perms.auth.view_user %}
-        <h2>All Users</h2>
-        <a href="{% url 'add_user' %}" class="btn btn-dark text-light float-right mb-2">Add User</a>
+        <h2>Wszyscy użytkownicy</h2>
+        <a href="{% url 'add_user' %}" class="btn btn-dark text-light float-right mb-2">Dodaj nowego użytkownika</a>
         <table class="table table-hover">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Full Name</th>
-                <th>Username</th>
+                <th>Imię i nazwisko</th>
+                <th>Nazwa użytkownika</th>
                 <th>Email</th>
-                <th>Active</th>
-                <th>Staff</th>
+                <th>Aktywność</th>
+                <th>Uprawnienia</th>
                 <th>Superuser</th>
-                <th>Action</th>
+                <th>Akcje</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
             </tbody>
           </table>
           {% else %}
-          <h5>You do not have permission to view this page</h5>
+          <h5>Nie jesteś uprawniony do wyświetlenia tej strony</h5>
         {% endif %}
     </div>
 </div>

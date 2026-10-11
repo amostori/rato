@@ -17,4 +17,13 @@ class BlogPostForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title', 'category', 'featured_image', 'short_description', 'blog_body', 'status', 'is_featured')
+        labels = {
+            'title': 'Tytuł',
+            'category': 'Kategoria',
+            'featured_image': 'Zdjęcie',
+            'short_description': 'Krótki opis',
+            'blog_body': 'Treść',
+            'status': 'Status',
+            'is_featured': 'Promowany',
+        }
 
