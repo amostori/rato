@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce.models import HTMLField
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, unique=True)
@@ -21,7 +22,7 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    featured_image = models.ImageField(upload_to='uploads/%Y/%m/%d')
+    featured_image = CloudinaryField('featured_image')
     short_description = HTMLField()
     blog_body = HTMLField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Draft")

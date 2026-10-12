@@ -1,5 +1,7 @@
 from pathlib import Path
 import environ	
+import cloudinary
+
 
 env = environ.Env()
 environ.Env.read_env()
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'dashboard',
     'tinymce',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 TINYMCE_API_KEY = env('TINYMCE_API_KEY')
+
+cloudinary.config(
+    cloud_name = env('CLOUD_NAME'),
+    api_key = env('API_KEY'),
+    api_secret = env('API_SECRET'),
+    secure = True
+)
 
     
 # Email
