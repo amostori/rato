@@ -12,7 +12,11 @@
     <!-- Right side content -->
     <div class="col-md-9">
         <h2>Edycja artykułu</h2>
-        
+        <script>
+      tinymce.init({
+        selector: 'textarea'
+      });
+    </script>
         <form action="{% url 'edit_post' post.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
