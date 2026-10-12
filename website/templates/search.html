@@ -11,7 +11,7 @@
       <div class="card-body">
         <h3><a href="{% url 'blog' i.slug  %}" class="text-dark">{{ i.title }}</a></h3>
         <small class="mb-1 text-muted">{{ i.created_at | timesince }} temu | {{ i.author }}</small>
-        <p class="card-text">{{ i.short_description | truncatewords:25 }}</p>
+        <p class="card-text">{{ i.short_description | safe | truncatewords:25 }}</p>
       </div>
     </div>
   </div>

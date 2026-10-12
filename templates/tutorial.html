@@ -184,4 +184,21 @@ wykonuje się w formularzu (w szablonie base.html).</li>
     <li>Na stronie Github po prawej u góry kliknąć avatar i wybrać settings-acces-SSH-add SSH i dodać skopiowany klucz ssh</li>
 </ol>
 <h6>andrzejczak, Pln</h6>
+
+<h1>Foodonline</h1>
+<ol>
+    <li>Stwórz projekt</li>
+    <li>Dodaj gitignore</li>
+    <li>Stwórz repozytorium</li>
+    <li>Dodaj .env i .env-example (bez danych wrażliwych) do głównego katalogu</li>
+    <li><code>pip install python-decouple</code></li>
+    <li>settings.py: <code>from decouple import config</code></li>
+    <li><pre><code>
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+</code></pre></li>
+    <li>Dodaj bazę postgres</li>
+
+
+</ol>
 {% endblock %}

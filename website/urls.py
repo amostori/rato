@@ -6,4 +6,5 @@ urlpatterns = [
     path('category/<int:category_id>', views.posts_by_category, name='posts_by_category'),
     path('blog/<slug:slug>', views.blog, name='blog'),
     path('search/', views.search, name='search'),
+    path('tutorial', views.tutorial, name='tutorial'),
 ]

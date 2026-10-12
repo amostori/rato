@@ -68,3 +68,7 @@ def search(request):
         'keyword': keyword,
     }
     return render(request, 'search.html', context)
+
+@login_required
+def tutorial(request):
+    return render(request, 'tutorial.html')
