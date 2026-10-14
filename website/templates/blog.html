@@ -19,7 +19,7 @@
                 </header>
                 <!-- Preview image figure-->
                  {% comment %} {% cloudinary single_blog.featured_image format="jpg" width=800 height=400 crop="fill" gravity="auto" %} {% endcomment %}
-                <figure class="mb-4"><img class="img-fluid rounded" src="{{ single_blog.featured_image.url }}" alt="..." /></figure>
+                <figure class="mb-4"><img class="img-fluid rounded" src="{% if single_blog.featured_image %}{{ single_blog.featured_image.url }}{% else %}https://images.unsplash.com/photo-1690683789978-3cf73960d650?q=80&w=2109&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D{% endif %} " alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{ single_blog.short_description | safe }}</p>

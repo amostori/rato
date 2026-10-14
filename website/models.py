@@ -22,7 +22,7 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    featured_image = CloudinaryField('featured_image')
+    featured_image = CloudinaryField('featured_image', blank=True, null=True)
     short_description = HTMLField()
     blog_body = HTMLField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="Draft")
