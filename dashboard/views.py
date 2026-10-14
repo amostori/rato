@@ -155,5 +155,8 @@ def edit_post(request, pk):
 @login_required
 def delete_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
-    post.delete()
-    return redirect('posts')
+    if request.method == 'POST':
+        post.delete()
+        return redirect('posts')
+    
+    return render(request, 'delete_post.html', {'post': post})
