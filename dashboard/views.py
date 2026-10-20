@@ -4,6 +4,7 @@ from website.models import Blog, Category
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.contrib import messages
 
 
 @login_required
@@ -33,6 +34,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Dodano nową kategorię {form.cleaned_data.get("category_name")}!')
             return redirect('categories')
     form = CategoryForm()
     context = {
@@ -47,6 +49,7 @@ def edit_category(request, pk):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Zaktualizowano kategorie!')
             return redirect('categories')
     form = CategoryForm(instance=category)
     context = {
@@ -59,6 +62,7 @@ def edit_category(request, pk):
 def delete_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
+    messages.warning(request, f'Usunięto kategorię {category.category_name}!')
     return redirect('categories')
 
 @login_required
@@ -124,6 +128,7 @@ def add_post(request):
             title = form.cleaned_data.get('title')
             post.slug = slugify(title) + '-' + str(post.id)
             post.save()
+            messages.success(request, f'Dodano post {post.title}!')
             return redirect('posts')
         else:
             print('form is invalid')
@@ -157,6 +162,7 @@ def delete_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
         post.delete()
+        messages.warning(request, f'Usunięto post {post.title}!')
         return redirect('posts')
     
     return render(request, 'delete_post.html', {'post': post})
