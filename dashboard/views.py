@@ -49,7 +49,7 @@ def edit_category(request, pk):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Zaktualizowano kategorie!')
+            messages.success(request, f'Zaktualizowano kategorię {form.cleaned_data.get("category_name")}!')
             return redirect('categories')
     form = CategoryForm(instance=category)
     context = {
@@ -79,6 +79,7 @@ def add_user(request):
         form = AddUserForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Dodano nowego użytkownika: {form.cleaned_data.get("username")}!')
             return redirect('users')
     form = AddUserForm()
     context = {
@@ -93,6 +94,7 @@ def edit_user(request, pk):
         form = AddUserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            messages.success(request, f'Zaktualizowano dane użytkownika: {form.cleaned_data.get("username")}!')
             return redirect('users')
     form = AddUserForm(instance=user)
     context = {
@@ -105,6 +107,7 @@ def edit_user(request, pk):
 def delete_user(request, pk):
     user = get_object_or_404(User, pk=pk)
     user.delete()
+    messages.warning(request, f'Usunięto użytkownika: {user.username}!')
     return redirect('users')
 
 @login_required
@@ -130,9 +133,6 @@ def add_post(request):
             post.save()
             messages.success(request, f'Dodano post {post.title}!')
             return redirect('posts')
-        else:
-            print('form is invalid')
-            print(form.errors)
     form = BlogPostForm()
     context = {
         'form': form
@@ -149,6 +149,7 @@ def edit_post(request, pk):
             title = form.cleaned_data.get('title')
             post.slug = slugify(title) + '-'+str(post.id)
             post.save()
+            messages.success(request, f'Zaktualizowano post {post.title}!')
             return redirect('posts')
     form = BlogPostForm(instance=post)
     context = {
