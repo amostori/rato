@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DJANGO_DEBUG = env('DJANGO_DEBUG')
+DEBUG = env('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = ['web-production-a32aa.up.railway.app', 'ratol.com.pl', '127.0.0.1', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://web-production-a32aa.up.railway.app', 'https://ratol.com.pl']
