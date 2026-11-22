@@ -123,7 +123,7 @@ def delete_user(request, pk):
 @login_required
 @staff_member_required
 def posts(reqest):
-    posts = Blog.objects.all()
+    posts = Blog.objects.all().order_by('-created_at')
     context = {
         'posts': posts
     }
