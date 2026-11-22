@@ -9,9 +9,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    featured_posts = Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
+    featured_posts = Blog.objects.filter(is_featured=True, status='Published').order_by('-created_at')
     featured_posts_count = featured_posts.count()
-    posts = Blog.objects.filter(is_featured=False, status='Published')
+    posts = Blog.objects.filter(is_featured=False, status='Published').order_by('-created_at')
     try:
         about = About.objects.get()
         # metoda get() zwraca tylko jeden obiekt. Jeśli obiekt nie istnieje 

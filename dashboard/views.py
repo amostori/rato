@@ -174,6 +174,7 @@ def edit_post(request, pk):
 @login_required
 @staff_member_required
 def delete_post(request, pk):
+    
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
         post.delete()
