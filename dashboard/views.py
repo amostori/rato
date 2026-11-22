@@ -2,12 +2,14 @@ from django.shortcuts import get_object_or_404, redirect, render
 from dashboard.forms import CategoryForm, AddUserForm, BlogPostForm
 from website.models import Blog, Category
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.contrib import messages
 
 
 @login_required
+@staff_member_required
 def dashboard(request):
     category_count = Category.objects.count()
     blogs_count = Blog.objects.count()
@@ -19,6 +21,7 @@ def dashboard(request):
 
 
 @login_required
+@staff_member_required
 def categories(request):
     categories = Category.objects.all()
     context = {
@@ -29,6 +32,7 @@ def categories(request):
 
 
 @login_required
+@staff_member_required
 def add_category(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -43,6 +47,7 @@ def add_category(request):
     return render(request, 'add_category.html', context)
 
 @login_required
+@staff_member_required
 def edit_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
@@ -59,6 +64,7 @@ def edit_category(request, pk):
     return render(request, 'edit_category.html', context)
 
 @login_required
+@staff_member_required
 def delete_category(request, pk):
     category = get_object_or_404(Category, pk=pk)
     category.delete()
@@ -66,6 +72,7 @@ def delete_category(request, pk):
     return redirect('categories')
 
 @login_required
+@staff_member_required
 def users(request):
     users = User.objects.all()
     context = {
@@ -74,6 +81,7 @@ def users(request):
     return render(request, 'users.html', context)
 
 @login_required
+@staff_member_required
 def add_user(request):
     if request.method == 'POST':
         form = AddUserForm(request.POST)
@@ -88,6 +96,7 @@ def add_user(request):
     return render(request, 'add_user.html', context)
 
 @login_required
+@staff_member_required
 def edit_user(request, pk):
     user = get_object_or_404(User, pk=pk)
     if request.method == 'POST':
@@ -104,6 +113,7 @@ def edit_user(request, pk):
     return render(request, 'edit_user.html', context)
 
 @login_required
+@staff_member_required
 def delete_user(request, pk):
     user = get_object_or_404(User, pk=pk)
     user.delete()
@@ -111,6 +121,7 @@ def delete_user(request, pk):
     return redirect('users')
 
 @login_required
+@staff_member_required
 def posts(reqest):
     posts = Blog.objects.all()
     context = {
@@ -119,6 +130,7 @@ def posts(reqest):
     return render(reqest, 'posts.html', context)
 
 @login_required
+@staff_member_required
 def add_post(request):
     if request.method == 'POST':
         # by przesyłać formularz wraz z plikiem nalezy ustawić request.FILES oraz
@@ -140,6 +152,7 @@ def add_post(request):
     return render(request, 'add_post.html', context)
 
 @login_required
+@staff_member_required
 def edit_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
@@ -159,6 +172,7 @@ def edit_post(request, pk):
     return render(request, 'edit_post.html', context)
 
 @login_required
+@staff_member_required
 def delete_post(request, pk):
     post = get_object_or_404(Blog, pk=pk)
     if request.method == 'POST':
